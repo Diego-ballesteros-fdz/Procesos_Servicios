@@ -1,0 +1,32 @@
+
+Apartado B
+
+Lo primero que mostrara en consola sera:
+
+AAA
+
+Lo segundo que puede aparecer es:
+
+BBB
+CCC
+CCC
+
+ó
+
+CCC
+CCC
+BBB
+
+ó
+
+CCC
+BBB
+CCC
+
+Como en el ejercicio anterior no vemos nada en el codigo que permita controlar la ejecución de los procesos, por ese motivo
+pueden ocurrir los supuestos anteriores.
+El proceso padre 1000 y el hijo 1002 ejecutaran el printf CCC, de ahí que se visualice dos veces.
+
+Apartado C
+
+el archivo mp5.c esta modificado para que aparezca siempre en el orden solicitado.
