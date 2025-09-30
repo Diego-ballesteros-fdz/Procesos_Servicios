@@ -5,6 +5,8 @@
 
 void main(){
 	
+	
+	//variables con nombres directos
 	pid_t pid,pid2,pid3,pidP2;
 	pid_t pidP1=getpid();
 	
@@ -23,7 +25,7 @@ void main(){
 			
 			if(pid3==0){//P5
 				
-				sleep(3);//le hacemos esperar para que de tiempo a crear los procesos hijo
+				sleep(3);//le hacemos esperar para que de tiempo a crear los procesos hijo ||no es una solucion||
 				//printf("5");
 				printf("Soy el proceso P5:\n\tMi pid es %d y el de mi abuelo es %d\n",getpid(),pidP2);
 				

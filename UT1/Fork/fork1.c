@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+//corregir que el p1 espere a todos
 
 void main(){
 	
