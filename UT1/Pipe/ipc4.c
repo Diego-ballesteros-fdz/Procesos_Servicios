@@ -38,6 +38,8 @@ void main(){
 		sprintf(mensajedf2,"%llu",factorial);
 		
 		write(df2[1],mensajedf2,sizeof(mensajedf2));//enviamos por el pipe2 el factorial
+		close(df1[0]);
+		close(df2[1]);
 		
 	
 	}else{//P1
@@ -53,6 +55,8 @@ void main(){
 		wait(NULL);//esperamos a que el hijo calcule
 		read(df2[0],mensajedf2,sizeof(mensajedf2));//recibimos el resultado
 		printf("El factorial calculado por el proceso hijo: %d != %s\n",numero1,mensajedf2);
+		close(df1[1]);
+		close(df2[0]);
 		
 	}
 

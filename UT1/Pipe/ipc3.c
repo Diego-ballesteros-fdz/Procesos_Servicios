@@ -28,6 +28,7 @@ void main(){
 		sprintf(mensaje,"%d %d",numero1,numero2);
 		//enviamos la información
 		write(df[1],mensaje,strlen(mensaje));
+		close(df[1]);
 	
 	}else{//P1
 		
@@ -46,6 +47,7 @@ void main(){
 		printf("%d * %d = %d\n",numero1,numero2,resultado2);
 		printf("%d * %d = %d\n",numero1,numero2,resultado3);
 		printf("%d / %d = %d\n",numero1,numero2,resultado4);
+		close(df[0]);
 		
 	}
 	

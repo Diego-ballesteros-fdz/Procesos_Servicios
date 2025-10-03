@@ -27,6 +27,8 @@ void main(){
 		//recibimos el mensaje de pipe2
 		read(df2[0],&letraFinal,sizeof(letraFinal));
 		printf("la letra del NIF es %c\n",letraFinal);
+		close(df1[1]);
+		close(df2[0]);
 	
 	}else{//P1
 		
@@ -38,6 +40,8 @@ void main(){
 		letraFinal=letra[numeroDNI];
 		write(df2[1],&letraFinal,sizeof(letraFinal));
 		wait(NULL);
+		close(df1[0]);
+		close(df2[1]);
 	
 	}
 

@@ -14,7 +14,6 @@ void main(){
 	time_t t;
 	int numero1,numero2,numero3,resultado;
 	char operador;
-	char mensaje[30];
 	srand((unsigned) time(&t));//inicializamos la semilla para el random
 	
 	pipe(df);
@@ -33,6 +32,7 @@ void main(){
 		printf("recibido caracter %c\n",operador);
 		resultado=numero1+numero2+numero3;//realizamos la operación
 		printf("La suma total es: %d\n",resultado);
+		close(df[0]);
 	
 	}else{//P1
 		
@@ -42,10 +42,11 @@ void main(){
 		numero2=rand() % 50;
 		numero3=rand() % 50;
 		operador='+';
-		sprintf(mensaje,"%d %d %d %c",numero1,numero2,numero3,operador);
+		sprintf(buffer,"%d %d %d %c",numero1,numero2,numero3,operador);
 		//enviamos la información
-		write(df[1],mensaje,strlen(mensaje));
+		write(df[1],buffer,strlen(buffer));
 		wait(NULL);
+		close(df[1]);
 		
 	}
 	
