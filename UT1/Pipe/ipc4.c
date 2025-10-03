@@ -9,7 +9,7 @@
 void main(){
 
 	int df1[2],df2[2];
-	char buffer1[30],buffer2[30],mensaje[30];//revisar con profesor manera más eficiente de acerlo
+	char mensajedf1[30],mensajedf2[30];
 	pid_t P2;
 	time_t t;
 	int numero1;
@@ -24,8 +24,8 @@ void main(){
 		
 		close(df1[1]);
 		close(df2[0]);
-		read(df1[0],buffer2,sizeof(buffer2));//leemos el num aleatorio en buffer2
-		numero1 = atoi(buffer2);  
+		read(df1[0],mensajedf1,sizeof(mensajedf1));//leemos el num aleatorio en mensajedf1
+		numero1 = atoi(mensajedf1);  
 		// convierte string a entero, si usaba scanf se quedaba pillado el programa esperando aleer del usuario
 		
 		// calculamos el factorial
@@ -35,9 +35,9 @@ void main(){
 			
 		}
 		//casteamos el factorial a string
-		sprintf(mensaje,"%llu",factorial);
+		sprintf(mensajedf2,"%llu",factorial);
 		
-		write(df2[1],mensaje,sizeof(mensaje));//enviamos por el pipe2 el factorial
+		write(df2[1],mensajedf2,sizeof(mensajedf2));//enviamos por el pipe2 el factorial
 		
 	
 	}else{//P1
@@ -47,12 +47,12 @@ void main(){
 		//enviamos la información
 		//creamos el numero aleatorios en el pipe
 		numero1=rand() % 11;
-		sprintf(mensaje,"%d",numero1);
-		write(df1[1],mensaje,sizeof(mensaje));
+		sprintf(mensajedf1,"%d",numero1);
+		write(df1[1],mensajedf1,sizeof(mensajedf1));
 		printf("El proceso padre genera el numero %d en el pipe1\n",numero1);
 		wait(NULL);//esperamos a que el hijo calcule
-		read(df2[0],buffer1,sizeof(buffer1));//recibimos el resultado
-		printf("El factorial calculado por el proceso hijo: %d != %s\n",numero1,buffer1);
+		read(df2[0],mensajedf2,sizeof(mensajedf2));//recibimos el resultado
+		printf("El factorial calculado por el proceso hijo: %d != %s\n",numero1,mensajedf2);
 		
 	}
 
