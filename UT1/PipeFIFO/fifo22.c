@@ -49,7 +49,11 @@ int main(){
 	printf("Factorial enviado\n");
 	
 	 //lo eliminams en fifo21 que acabara más tarde
-
+	
+	 close(fd1);
+    
+    //eliminamos el archivo
+    unlink("pipe02");
 		
 	
 	return 0;

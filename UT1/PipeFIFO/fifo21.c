@@ -39,7 +39,10 @@ int main(){
     //en este punto hemos recibido los datos
     printf("Factorial recibido: %lld\n", factorial);
    
+     close(fd1);
     
+    //eliminamos el archivo
+    unlink("pipe02");
 	
     
 	return 0;
