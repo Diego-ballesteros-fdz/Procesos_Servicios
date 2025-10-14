@@ -20,7 +20,7 @@ void capturador(int signal){
 	}	
 }
 int main(){
-	int fd,num;//lo iniciamos en 1 para que entre en el bucle la primera vez
+	int fd,num;
 	const char *fifo1 = "pipe1";
 	//creamos el fifo
 	mkfifo(fifo1, 0666);
