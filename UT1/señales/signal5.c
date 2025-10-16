@@ -58,6 +58,7 @@ int main(){
 		
 		signal(SIGUSR1,capturador);//activamos el capturador para p2
 		signal(SIGINT,capturador);//capturamos el sigint para p2
+		//sigprocmask(SIG_BLOCK, &set2, NULL);
 		
 		do{
 			
@@ -78,6 +79,7 @@ int main(){
 		
 			signal(SIGUSR2,capturador);//activamos el capturador para p3
 			signal(SIGINT,capturador);//capturamos el sigint para p3
+			//sigprocmask(SIG_BLOCK, &set3, NULL);
 			do{
 				
 				sigwait(&set3,&sign3);
