@@ -113,6 +113,7 @@ int main(){
 			
 			printf("Fin proceso padre con pid %d\n",getpid());
 			
+			unlink("pipe1");
 			exit(0);
 		}
 	}
