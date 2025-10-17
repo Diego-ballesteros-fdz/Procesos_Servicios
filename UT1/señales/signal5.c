@@ -17,52 +17,50 @@ void capturador(int sig){
 	if(sig==SIGINT){//PARA ACABAR PROCESOS
 		if(p2==0){//proceso p2
 			printf("Mandando señal de terminación al proceso hijo P2 con pid %d\n",getpid());
-			kill(getpid(),SIGINT);
+			exit(0);
 		}else if(p3==0){//proceso p3
 			printf("Mandando señal de terminación al proceso hijo P3 con pid %d\n",getpid());
-			kill(getpid(),SIGINT);
+			exit(0);
 		}	
 	}
 	if(sig==SIGUSR1){//P2
 		
-		fd=open(fifo1,O_RDONLY);
+		
 		read(fd, &num, sizeof(num));
 		printf("\nNúmero par %d recibido por el proceso P2 con pid %d\n",num,getpid());
+		
 		
 	}
 	
 	if(sig==SIGUSR2){//P3
 		
-		fd=open(fifo1,O_RDONLY);
+		
 		read(fd, &num, sizeof(num));
 		printf("\nNúmero impar %d recibido por el proceso P3 con pid %d\n",num,getpid());
+		
 	}
+	
 	//reactivamos las señales ¿¿parece que en sistemas modernos es redundante??
-	signal(SIGUSR1,capturador);
-	signal(SIGUSR2,capturador);
+	//signal(SIGUSR1,capturador);
+	//signal(SIGUSR2,capturador);
+	
 }
 
 int main(){
 	//creamos el fifo
 	mkfifo(fifo1, 0666);
+	signal(SIGUSR1,capturador);
+	signal(SIGUSR2,capturador);
+	signal(SIGINT,capturador);
 	
 	p2=fork();
 	
 	if(p2==0){//p2
-		sigset_t set2;
-		int sign2;
-
-		// Inicializamos el conjunto de señales
-		sigemptyset(&set2);
-		sigaddset(&set2, SIGUSR1); // señal para leer número
-		
-		signal(SIGUSR1,capturador);//activamos el capturador para p2
-		signal(SIGINT,capturador);//capturamos el sigint para p2
-		//sigprocmask(SIG_BLOCK, &set2, NULL);
+		fd=open(fifo1, O_RDONLY);
 		
 		do{
 			
-			sigwait(&set2,&sign2);
+			pause();
 			
 		}while(num!=0);
 		
@@ -70,19 +68,11 @@ int main(){
 		p3=fork();
 		
 		if(p3==0){//p3
-			sigset_t set3;
-			int sign3;
-
-			// Inicializamos el conjunto de señales
-			sigemptyset(&set3);
-			sigaddset(&set3, SIGUSR1); // señal para leer número
-		
-			signal(SIGUSR2,capturador);//activamos el capturador para p3
-			signal(SIGINT,capturador);//capturamos el sigint para p3
-			//sigprocmask(SIG_BLOCK, &set3, NULL);
+			fd=open(fifo1, O_RDONLY);
+			
 			do{
 				
-				sigwait(&set3,&sign3);
+				pause();
 				
 			}while(num!=0);
 		}else{//p1
@@ -93,11 +83,12 @@ int main(){
 				
 				printf("Introduce número:");
 				scanf("%d",&num);
-				if(num%2==0){//es par para el p2
+				if(num%2==0 && num!=0){//es par para el p2
 					
 					kill(p2,SIGUSR1);//mandamos la señal al p2 para que entre al captor
 					
 				}else if(num==0){
+					//printf("entra en 0");
 					
 					kill(p2,SIGINT);//mandamos la señal de matar proceso p2
 					kill(p3,SIGINT);//mandamos la señal de matar proceso p3					
@@ -110,6 +101,7 @@ int main(){
 				if(num!=0){
 					
 					write(fd,&num,sizeof(num));//en caso de no ser 0 escribira en el pipe
+					sleep(1);
 				}
 				
 			}while(num!=0);
