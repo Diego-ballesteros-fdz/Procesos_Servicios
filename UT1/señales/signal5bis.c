@@ -27,9 +27,11 @@ void captor(int sign){
 			wait(NULL);//esperamos a un hijo
 			wait(NULL);//esperamos al segundo
 			printf("Fin proceso padre con pid %d\n",getpid());
+			
 			//eliminamos el fifo
 			close(fd);
 			unlink("pipe1");
+			
 			exit(0);
 		}
 		
