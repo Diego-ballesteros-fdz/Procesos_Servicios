@@ -1,19 +1,23 @@
-
 public class HiloParImpar implements Runnable{
     private int tipo;
+
+    public HiloParImpar(int tipo){
+        this.tipo=tipo;
+    }
     public void run(){
+        int num=0;
         do{
-        tipo++;
-    if(tipo%2==0){//filtramos por par
-        if (Thread.currentThread().getName()=="HILO xx" && tipo<=100){//filtramos por hilo xx
-                System.out.println(Thread.currentThread().getName()+" generando número par"+tipo);
+        num++;
+    if(tipo==1){//filtramos por par
+        if (Thread.currentThread().getName()=="HILO 1" && num<=100){//filtramos por hilo 1
+                System.out.println(Thread.currentThread().getName()+" generando número par"+num);
         }
     }else{//filtramos por impar
-        if (Thread.currentThread().getName()=="HILO yy" && tipo>100){//filtramos por hilo yy
-                System.out.println(Thread.currentThread().getName()+" generando número impar"+tipo);
+        if (Thread.currentThread().getName()=="HILO 2" && num>100){//filtramos por hilo 2
+                System.out.println(Thread.currentThread().getName()+" generando número impar"+num);
         }
     }
-    }while(tipo!=200);
+    }while(num!=200);
     }
 
 }
