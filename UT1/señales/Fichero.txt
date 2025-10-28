@@ -1,0 +1,3 @@
+Señal SIGINT recibida a las 13/10/2025 14:27:15
+Señal SIGINT recibida a las 13/10/2025 14:27:17
+Señal SIGINT recibida a las 13/10/2025 14:27:19
