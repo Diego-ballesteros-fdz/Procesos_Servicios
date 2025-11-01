@@ -1,6 +1,0 @@
-
-
-Apartado A
-
-El orden será aleatorio, esceptuando el proceso padre que siempre imprimirá el último de ellos.
-Esto se debe, como en los ejercicios anteriores,por que el procesador ejecuta de forma aleatoria los diferentes procesos que creamos.

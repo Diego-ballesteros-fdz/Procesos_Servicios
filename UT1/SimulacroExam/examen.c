@@ -109,7 +109,7 @@ void main(){
 			//cerramos el descriptor de lectura y enviamos la información a p3
 			close(df2[0]);
 			write(df2[1],&resultado,sizeof(resultado));
-			//esperamos a que su hijo acabe
+			//esperamos a que su hijo acabe, el write paraliza pero al ser leido se continua.
 			wait(NULL);
 			//terminamos el proceso
 			printf("Termina proceso P2.\n");
