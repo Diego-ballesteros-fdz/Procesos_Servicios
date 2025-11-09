@@ -1,3 +1,4 @@
+package banco;
 // Clase Principal
 public class HiloCajeroAutomatico {
     public static void main(String[] args) {

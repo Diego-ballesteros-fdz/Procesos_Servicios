@@ -1,3 +1,4 @@
+package banco;
 // Clase HiloSacarDinero
 class HiloSacarDinero extends Thread {
     private CuentaBancaria cuenta;

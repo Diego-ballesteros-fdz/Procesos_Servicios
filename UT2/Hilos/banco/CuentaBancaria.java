@@ -1,3 +1,4 @@
+package banco;
 // Clase CuentaBancaria
 // Definición de la cuenta con un saldo inicial y de las operaciones para
 //ingresar dinero (método ingresarDinero) y sacar dinero (método sacarDinero)de // la cuenta
