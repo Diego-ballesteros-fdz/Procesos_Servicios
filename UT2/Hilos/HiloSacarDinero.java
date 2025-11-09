@@ -11,8 +11,10 @@ class HiloSacarDinero extends Thread {
         this.cantidad = cantidad;
     }
 
+    //añadimos synchronized para asegurar la atomicidad
     public void run() {
-        cuenta.saldo += cantidad;
-        System.out.println(Thread.currentThread().getName() + "Ha sacado " + cantidad + " de la cuenta bancaria");
+        synchronized(cuenta){
+        cuenta.sacarDinero(nombre, cantidad);
+        }
     }
 }

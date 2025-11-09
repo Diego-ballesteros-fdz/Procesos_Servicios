@@ -6,7 +6,10 @@
 	time(&hora);
 	fecha = ctime(&hora);
 	
-	//- funciones de cade de caracteres:
+	//- funciones de cadena de caracteres:
+	
+		//-dividimos la cadena formada por el padre
+		scanf(buffer,"%d %d",&numero1,&numero2);
 		//- Copiar cadena al lugar que ocupaba otra
 		//si el origen es mas grande que el destino sobreescribiendo memoria
 		strcpy(destino, origen);
@@ -25,7 +28,7 @@
 		//-convierte de entero acadena de caracteres:
 		//tambien sirve para unir variables en una cadena
 		//de esta forma unimos en un solo buffer toda la información
-		char cadena[30]= sprintf(buffer_guardar,"cadena con %d,%s,%c",int,char *nombre,char);
+		sprintf(buffer_guardar,"cadena con %d,%s,%c",int,char *nombre,char);
 		
 	//-funcion de creación int aleatorio:
 		time_t t;
@@ -86,7 +89,7 @@
 		
 		p1=getpid();
 		
-		fork(p2);
+		p2=fork();
 		
 		if(p2==-1){ 
 		
@@ -158,6 +161,7 @@
 			close(df[0]);
 			//escribimos
 			write(df[1],mensaje,sizeof(mensaje));
+			//o usar strlen(mensaje) + 1 en lugar de sizeof
 		
 		}
 	}
