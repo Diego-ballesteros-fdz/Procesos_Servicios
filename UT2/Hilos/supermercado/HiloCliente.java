@@ -1,24 +1,34 @@
-
+import java.util.ArrayList;
 
 public class HiloCliente extends Thread {
 
     String nombre;
-    Supermercado s;
+    ArrayList<Caja> cajas;
 
-    public HiloCliente(int num, Supermercado s){
+    public HiloCliente(int num, ArrayList<Caja> cajas){
         this.nombre="Cliente"+num;
-        this.s=s;
+        this.cajas=cajas;
     }
 
     
     public void run(){
-        int caja=-1;
-
+        System.out.println(nombre+" Entra en la fila del supermercado.");
+        boolean atendido=false;
         do{
-            caja=s.cajaLibre();
-        }while(caja==-1);
-
-        s.recibirCliente(caja,nombre);
+            for(int i=0;i<cajas.size();i++){
+                Caja c=cajas.get(i);
+                if(c.getEstado()==false && atendido==false){
+                    c.atender(nombre);
+                    atendido=true;
+                    break;
+                }
+                try {
+                Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }while(!atendido);
     }
 
     public String getNombre(){
