@@ -1,0 +1,28 @@
+
+
+public class Productor extends Thread {
+    private Cola cola;
+    private int n;
+
+    //Constructor recibe la cola y un id para el hilo prodcutor
+    public Productor(Cola c, int n) {
+        cola = c;
+        this.n = n;
+    }
+
+    public void run() {
+        //System.out.println("productor ejecuta el run");
+        for (int i = 0; i < 9; i++) {
+            try {
+            //System.out.println("productor Esta en el bucle");
+            int rand= (int)Math.round(Math.random()*10);
+            System.out.println("Productor"+n+" añade: "+rand);
+            cola.put(rand); //escribe el número en la coala
+                sleep(100);
+            } catch (InterruptedException e) { 
+                System.out.println("Error"+ e);
+            }				
+        }
+        System.out.println("Productor ha acabado");
+    }
+}
