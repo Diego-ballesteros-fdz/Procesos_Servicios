@@ -8,11 +8,13 @@ public class Productor_Consumidor {
     Cola cola = new Cola(5);
 	
     Productor prod = new Productor(cola, 1);	
-	Consumidor cons = new Consumidor(cola, 1);
+	  Consumidor cons = new Consumidor(cola, 1);
+    Consumidor2 cons2=new Consumidor2(cola, 2);
     System.out.println("Se crearon los hilos");
 	
     prod.start();
-	cons.start();
+	  cons.start();
+    cons2.start();
     System.out.println("Los hilos estan ejecutandose");
     try{
     prod.join();
