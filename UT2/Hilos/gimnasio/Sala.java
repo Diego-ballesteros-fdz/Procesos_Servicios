@@ -1,25 +1,47 @@
 
 
 public class Sala {
-    boolean estado;//esta libre,true o ocupada false
-    String id;
+    int aforo;
 
-    public Sala(int id){
-        estado=true;//la iniciamos libre
-        this.id="Sala "+id;
+    public Sala(){
+        aforo=0;
+    }
+    
+     synchronized boolean libre(){
+        try{
+            boolean atendido=false;
+            do{
+                if(aforo<5){
+                    return true;
+                }else{
+                    wait();
+                }
+            }while(!atendido);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    synchronized void salir(){
+        aforo--;
+        notify();
     }
 
     /**
      * metodo que simula el entrenamiento
      */
-    synchronized void entrenar(String nombre){
-        System.out.println(nombre+" entrando a entrenar a la "+id);
+    public void entrenar(String nombre){
+        aforo++;
+        System.out.println(nombre+" entrando a entrenar");
         try{
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         }catch(Exception e){
             System.out.println(e);
         }
-        System.out.println(nombre+" saliendo de entrenar de la "+id);
+        System.out.println(nombre+" saliendo de entrenar");
     }
+
+
 
 }
