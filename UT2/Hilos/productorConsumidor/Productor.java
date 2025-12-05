@@ -12,7 +12,7 @@ public class Productor extends Thread {
 
     public void run() {
         //System.out.println("productor ejecuta el run");
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 30; i++) {
             try {
             //System.out.println("productor Esta en el bucle");
             int rand= (int)Math.round(Math.random()*10);
