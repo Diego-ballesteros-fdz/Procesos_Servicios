@@ -22,15 +22,18 @@ public class TCPservidor {
         InputStream entrada= cliente1.getInputStream();
         DataInputStream flujoEntrada=new DataInputStream(entrada);
 
-        System.out.println("Recibiendo del cliente 1 "+flujoEntrada.readUTF());
+
+        String mensaje=flujoEntrada.readUTF();
+
+        System.out.println("Recibiendo del cliente 1 "+mensaje);
 
         Socket cliente2=Servidor.accept();
         
         //enviamos el menasje al cliente 2 para que haga sus cosas
         OutputStream salida= cliente2.getOutputStream();
         DataOutputStream flujoSalida = new DataOutputStream(salida);
-        flujoSalida.writeUTF(flujoEntrada.readUTF());
-        String mensaje=flujoEntrada.readUTF();
+        flujoSalida.writeUTF(mensaje);
+        
 
         System.out.println("enviando al cliente 2: " +mensaje);
 
