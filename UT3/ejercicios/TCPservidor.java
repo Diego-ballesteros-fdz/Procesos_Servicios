@@ -30,21 +30,23 @@ public class TCPservidor {
         OutputStream salida= cliente2.getOutputStream();
         DataOutputStream flujoSalida = new DataOutputStream(salida);
         flujoSalida.writeUTF(flujoEntrada.readUTF());
+        String mensaje=flujoEntrada.readUTF();
 
-        System.out.println("enviando al cliente 2: " +flujoEntrada.readUTF());
+        System.out.println("enviando al cliente 2: " +mensaje);
 
         //leemos el mensaje del cliente 2
         InputStream entrada2=cliente2.getInputStream();
         DataInputStream flujoEntrada2=new DataInputStream(entrada2);
+        String mensaje2=flujoEntrada2.readUTF();
 
-        System.out.println("Recibiendo del cliente 2 "+flujoEntrada2.readUTF()+", enviandolo al cliente 1");
+        System.out.println("Recibiendo del cliente 2 "+mensaje2+", enviandolo al cliente 1");
 
         //enviamos el menasje al cliente 2 para que haga sus cosas
         OutputStream salida2= cliente1.getOutputStream();
         DataOutputStream flujoSalida2 = new DataOutputStream(salida2);
-        flujoSalida2.writeUTF(flujoEntrada2.readUTF());
+        flujoSalida2.writeUTF(mensaje2);
 
-        System.out.println("Enviado desde el server al cliente 1 "+flujoEntrada2.readUTF());
+        System.out.println("Enviado desde el server al cliente 1 "+mensaje2);
 
 
         //cerramos todo lo creado para el ejercicio
