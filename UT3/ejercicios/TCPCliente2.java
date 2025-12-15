@@ -14,7 +14,7 @@ public class TCPCliente2 {
 
         try{
 
-        InetAddress ip=InetAddress.getByName("192.168.204.102");
+        InetAddress ip=InetAddress.getByName("192.168.204.115");
         
         Socket cliente2=new Socket(ip,puerto);
         

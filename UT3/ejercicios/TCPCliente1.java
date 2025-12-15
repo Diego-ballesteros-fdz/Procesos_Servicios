@@ -11,27 +11,26 @@ public class TCPCliente1 {
     public static void main(String[] args) {
         
         Scanner teclado=new Scanner(System.in);
-        int puerto=5555;
+        int puerto=55555;
 
         try{
 
-        InetAddress ip=InetAddress.getByName("192.168.204.102");
+        InetAddress ip=InetAddress.getByName("192.168.204.129");
         
         Socket cliente1=new Socket(ip,puerto);
 
-        System.out.println("Escriba un numero para enviar al servidor: ");
+        String mensaje = "Diego Ballesteros";
 
-        int mensaje=teclado.nextInt();
-        
         //creamos el flujo de salido
         DataOutputStream flujoSalida = new DataOutputStream(cliente1.getOutputStream());
-        //escribimos en el flujo de salida
-        flujoSalida.writeUTF(String.valueOf(mensaje));
+        //escribimos en el flujo de salida el nombre
+        flujoSalida.writeInt(50258682);
 
+    
         
         DataInputStream flujoEntrada=new DataInputStream(cliente1.getInputStream());
 
-        System.out.println("Factorial: "+flujoEntrada.readUTF()+" recibido del servidor.");
+        System.out.println(flujoEntrada.readUTF());
 
         //cerramos
         flujoSalida.close();	

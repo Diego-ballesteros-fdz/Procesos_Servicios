@@ -9,10 +9,12 @@
 	//- funciones de cadena de caracteres:
 	
 		//-dividimos la cadena formada por el padre
-		scanf(buffer,"%d %d",&numero1,&numero2);
+		sscanf(buffer,"%d %d",&numero1,&numero2);
 		//- Copiar cadena al lugar que ocupaba otra
 		//si el origen es mas grande que el destino sobreescribiendo memoria
 		strcpy(destino, origen);
+		//-concatenar string
+		strcat(str1,str2);
 		
 		//-saber el tamaño de una cadena:
 		int tamaño=strlen(cadena);
@@ -131,7 +133,7 @@
 //(En los pipes las funciones write y read son bloqueantes)
 //(El mensaje debe ser String o char para enviarlo, si no usaremos la misma refiriendonos al puntero &variable)
 
-	void main{
+	void main(){
 		pid_t p1,p2,p3;
 		int df[2];
 		char mensaje[30];//solo si es char[]
@@ -142,7 +144,7 @@
 		p1=getpid();
 		
 		//creación del hijo
-		fork(p2);
+		p2=fork();
 		
 		if(p2==-1){ 
 		

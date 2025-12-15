@@ -10,58 +10,80 @@ import java.net.Socket;
 
 public class TCPservidor {
      public static void main(String[] args) {
-             int puerto=5555;
-    try 
-        {
-        ServerSocket Servidor = new ServerSocket(puerto); 
-        
-        Socket cliente1= Servidor.accept(); 
-        System.out.println("Cliente 1 conectado");
-        
-        //recibimos el mensaje del cliente1
-        InputStream entrada= cliente1.getInputStream();
-        DataInputStream flujoEntrada=new DataInputStream(entrada);
+             int puerto=55555;
+        try (ServerSocket servidor = new ServerSocket(puerto)) {
+            System.out.println("Servidor iniciado. Escuchando en el puerto " + puerto + "...");
+
+            // Bucle infinito: el servidor atiende un cliente tras otro
+            while (true) {
+                System.out.println("Esperando conexión de un cliente...");
+                
+                // Aceptar conexión de un cliente (bloqueante)
+                try (
+                    Socket socketCliente = servidor.accept();
+                    DataInputStream entrada = new DataInputStream(socketCliente.getInputStream());
+                    DataOutputStream salida = new DataOutputStream(socketCliente.getOutputStream())
+                ) {
+                    System.out.println("Cliente conectado desde IP: " 
+                            + socketCliente.getInetAddress().getHostAddress()
+                            + " Puerto: " + socketCliente.getPort());
+
+                    //leer el mensaje del cliente
+                    String parametro = entrada.readUTF();
+
+                    String numeros = entrada.readUTF();
+
+                    //dividimos el string
+                    String num[] =numeros.split("/");
+
+                    int num1=Integer.valueOf(num[0]),num2=Integer.valueOf(num[1]);
 
 
-        String mensaje=flujoEntrada.readUTF();
+                    int total = 0;
+                    String mensaje="";
+                    boolean error=false;
+                    // en funcion de su selec hacemos cosas
+                    switch (parametro) {
+                        case "SUMA":
+                            total = num1 + num2;
+                            break;
+                        case "RESTA":
+                            total = num1 - num2;
+                            break;
+                        case "MULTI":
+                            total = num1 * num2;
+                            break;
+                        default:
+                            mensaje="Algo fallo al pasar los parametros.";
+                            error=true;
+                            break;
 
-        System.out.println("Recibiendo del cliente 1 "+mensaje);
+                    }
 
-        Socket cliente2=Servidor.accept();
-        
-        //enviamos el menasje al cliente 2 para que haga sus cosas
-        OutputStream salida= cliente2.getOutputStream();
-        DataOutputStream flujoSalida = new DataOutputStream(salida);
-        flujoSalida.writeUTF(mensaje);
-        
+                    if(!error){
+                        //formamos el mensaje
+                        mensaje="El resultado de la "+parametro+" es "+String.valueOf(total);
+                        //lo enviamos
+                        salida.writeUTF(mensaje);
+                        salida.flush();
+                    }else{
+                        salida.writeUTF(mensaje);
+                    }
+                    
 
-        System.out.println("enviando al cliente 2: " +mensaje);
+                    System.out.println("Cliente finalizado, esperando el siguiente...");
 
-        //leemos el mensaje del cliente 2
-        InputStream entrada2=cliente2.getInputStream();
-        DataInputStream flujoEntrada2=new DataInputStream(entrada2);
-        String mensaje2=flujoEntrada2.readUTF();
+                } catch (IOException eCliente) {
+                    System.out.println("Error atendiendo a un cliente: " + eCliente.getMessage());
+                    eCliente.printStackTrace();
+                    // Se continúa el bucle para seguir aceptando otros clientes
+                }
+            }
 
-        System.out.println("Recibiendo del cliente 2 "+mensaje2+", enviandolo al cliente 1");
-
-        //enviamos el menasje al cliente 2 para que haga sus cosas
-        OutputStream salida2= cliente1.getOutputStream();
-        DataOutputStream flujoSalida2 = new DataOutputStream(salida2);
-        flujoSalida2.writeUTF(mensaje2);
-
-        System.out.println("Enviado desde el server al cliente 1 "+mensaje2);
-
-
-        //cerramos todo lo creado para el ejercicio
-        cliente1.close();
-        cliente2.close();
-        flujoSalida.close();
-        flujoSalida2.close();
-        flujoEntrada.close();
-        flujoEntrada2.close();
-        Servidor.close(); 
-
-        } catch (IOException excepcion) {excepcion.getMessage()	;  }
+        } catch (IOException e) {
+            System.out.println("Error en el servidor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
 }
