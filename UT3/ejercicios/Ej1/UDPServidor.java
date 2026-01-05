@@ -16,16 +16,15 @@ public class UDPServidor {
     int bytesRec = recibo.getLength();
     //convertimos a String
     String paquete= new String(recibo.getData());
-    System.out.println("Recibido del Cliente 1 ,"+paquete);
+    System.out.println("Recibido del Cliente 1 ,"+paquete+" con ip: "+recibo.getAddress()+"en el puerto: "+recibo.getPort());
 
     //alamacenamos la info del cliente 1
     InetAddress ip1=recibo.getAddress();
     int puerto1=recibo.getPort();
 
-
     //ahora debemos enviar al cliente 2
     InetAddress ip2= InetAddress.getByName("192.168.1.38");
-    int puerto2=55555;
+    int puerto2=5555;
     // ENVIANDO DATAGRAMA AL CLIENTE2
     System.out.println("Enviando numero al cliente 2 para calcular su factorial " + paquete);
     bufer=paquete.getBytes();
@@ -37,11 +36,11 @@ public class UDPServidor {
     //debemos recibir del cliente 2 sobreescribiendo el datagram recibo
     socket.receive(recibo);
     //capturamos en un string
-    paquete=new String(recibo.getData());
-    System.out.println("Recibiendo del cliente2 "+paquete);
+    String factorial=new String(recibo.getData());
+    System.out.println("Recibiendo del cliente 2 el factorial: "+factorial);
 
     //Enviamos al Cliente 1
-    bufer=paquete.getBytes();
+    bufer=factorial.getBytes();
     DatagramPacket envio2=new DatagramPacket(bufer,bufer.length,ip1, puerto1);
     socket.send(envio2);
     
