@@ -9,7 +9,7 @@ public class UDPCliente1 {
             InetAddress ip=InetAddress.getByName("192.168.1.40");
             int puerto = 55555;
 
-            DatagramSocket clienteSocket=new DatagramSocket(puerto);
+            DatagramSocket clienteSocket=new DatagramSocket(4444);
 
             System.out.println("Escribe un numero para calcular su factorial: ");
             int numero=teclado.nextInt();
@@ -23,10 +23,11 @@ public class UDPCliente1 {
             clienteSocket.send(envio);
             
             //recibimos del servidor
-            DatagramPacket recibo=new DatagramPacket(recibidos,recibidos.length,ip,puerto);
+            DatagramPacket recibo=new DatagramPacket(recibidos,recibidos.length);
             clienteSocket.receive(recibo);//recibimos el mensaje del server para trabajar con él
             String mensaje=new String(recibo.getData()).trim();
             System.out.println("El cliente 1 recibe del server el factorial: "+ mensaje);
+      
     }
     
 }
