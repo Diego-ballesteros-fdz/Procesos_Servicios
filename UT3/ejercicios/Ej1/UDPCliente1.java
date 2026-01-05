@@ -27,7 +27,6 @@ public class UDPCliente1 {
             clienteSocket.receive(recibo);//recibimos el mensaje del server para trabajar con él
             String mensaje=new String(recibo.getData()).trim();
             System.out.println("El cliente 1 recibe del server el factorial: "+ mensaje);
-      
     }
     
 }
