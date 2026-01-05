@@ -2,7 +2,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.io.*;
 
-public class TCPCliente1 {
+public class UDPCliente1 {
     public static void main(String[] args) {
         
         Scanner teclado=new Scanner(System.in);
@@ -14,7 +14,7 @@ public class TCPCliente1 {
         
         Socket cliente1=new Socket(ip,puerto);
 
-        
+        System.out.println("Escribe un numero para calcular su factorial");
         int numero = teclado.nextInt();
         String mensaje=String.valueOf(numero);
 
