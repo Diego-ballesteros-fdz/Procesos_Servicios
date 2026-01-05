@@ -8,7 +8,7 @@ import java.net.Socket;
 public class TCPCliente2 {
     public static void main(String[] args) {
         
-    int puerto=5555;
+    int puerto=55555;
 
         try{
 

@@ -16,7 +16,7 @@ public class TCPCliente1 {
         InetAddress ip=InetAddress.getByName("192.168.1.40");
         
         Socket cliente1=new Socket(ip,puerto);
-
+        System.out.println("Escriba un numero para calcular el factorial: ");
         int numero = teclado.nextInt();
         String mensaje=String.valueOf(numero);
 
