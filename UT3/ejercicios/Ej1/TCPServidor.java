@@ -1,5 +1,3 @@
-package Ej1;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
