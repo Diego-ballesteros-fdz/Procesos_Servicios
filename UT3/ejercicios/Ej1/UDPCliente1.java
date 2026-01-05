@@ -1,44 +1,33 @@
 import java.net.*;
 import java.util.Scanner;
-import java.io.*;
+
 
 public class UDPCliente1 {
-    public static void main(String[] args) {
-        
-        Scanner teclado=new Scanner(System.in);
-        int puerto=55555;
+    public static void main(String[] args) throws Exception {
+            Scanner teclado=new Scanner(System.in);
+            byte[] recibidos=new byte[1024];
+            InetAddress ip=InetAddress.getByName("192.168.1.40");
+            int puerto = 55555;
 
-        try{
+            DatagramSocket clienteSocket=new DatagramSocket(puerto);
 
-        InetAddress ip=InetAddress.getByName("192.168.1.40");
-        
-        Socket cliente1=new Socket(ip,puerto);
-
-        System.out.println("Escribe un numero para calcular su factorial");
-        int numero = teclado.nextInt();
-        String mensaje=String.valueOf(numero);
-
-        //creamos el flujo de salida
-        DataOutputStream flujoSalida = new DataOutputStream(cliente1.getOutputStream());
-        //escribimos en el flujo de salida el mensaje
-        flujoSalida.writeUTF(mensaje);
-
-    
-        //Creamos el flujo de entrada
-        DataInputStream flujoEntrada=new DataInputStream(cliente1.getInputStream());
-        //recibimos el mensaje
-        System.out.println(flujoEntrada.readUTF());
-
-        //cerramos
-        flujoSalida.close();	
-        flujoEntrada.close();
-	    cliente1.close();
-
-        
-
-
-        }catch(IOException e){System.out.println(e);}
-
+            System.out.println("Escribe un numero para calcular su factorial: ");
+            int numero=teclado.nextInt();
+            
+            String enviar=String.valueOf(numero);//pasamos a string
+            recibidos=enviar.getBytes();//pasamos a bytes
+            //preparamos el envio
+            DatagramPacket envio=new DatagramPacket(recibidos, recibidos.length,ip,puerto);
+            System.out.println("Cliente 1 envia el numero "+numero);
+            //hacemos el envio
+            clienteSocket.send(envio);
+            
+            //recibimos del servidor
+            DatagramPacket recibo=new DatagramPacket(recibidos,recibidos.length);
+            clienteSocket.receive(recibo);//recibimos el mensaje del server para trabajar con él
+            String mensaje=new String(recibo.getData()).trim();
+            System.out.println("El cliente 1 recibe del server el factorial: "+ mensaje);
+      
     }
     
 }
