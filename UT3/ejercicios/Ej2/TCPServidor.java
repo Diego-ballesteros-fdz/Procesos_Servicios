@@ -47,8 +47,9 @@ public class TCPServidor {
                             menor=array[i];
                     }
                     //enviarDatos
-                    //para enviar los 3 datos en un solo paquete lo uniremos por un . y asi el cliente los podra separar
-                    String mensaje=String.valueOf(suma)+"."+String.valueOf(mayor)+"."+String.valueOf(menor);
+                    //para enviar los 3 datos en un solo paquete lo uniremos por un / y asi el cliente los podra separar
+                    String mensaje=String.valueOf(suma)+"/"+String.valueOf(mayor)+"/"+String.valueOf(menor);
+                    System.out.println(mensaje);
                     salida.writeUTF(mensaje);
 
                     //finalizamos con el cliente y esperamos al siguiente
