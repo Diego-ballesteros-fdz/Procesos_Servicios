@@ -5,17 +5,15 @@ import java.net.InetAddress;
 
 public class UDPCliente2 {
 
-    public static void main(String[] args) throws IOException{
-        
-        
-
-        InetAddress ip=InetAddress.getByName("192.168.1.40");
+    public static void main(String[] args){     
+        try{
+        InetAddress ip=InetAddress.getByName("192.168.1.37");
         int puerto = 5555;
 
         DatagramSocket clienteSocket=new DatagramSocket(puerto);
 
-        byte[] recibidos=new byte[1024];
-        DatagramPacket recibo=new DatagramPacket(recibidos,recibidos.length);
+        byte[] bufer=new byte[1024];
+        DatagramPacket recibo=new DatagramPacket(bufer,bufer.length);
         clienteSocket.receive(recibo);//recibimos el mensaje del server para trabajar con él
 
         String mensaje=new String(recibo.getData()).trim();
@@ -28,13 +26,17 @@ public class UDPCliente2 {
         }
         String enviar=String.valueOf(factorial);//pasamos a string
 
-        recibidos=enviar.getBytes();//pasamos a bytes y machacamos lo anterior
+        byte[] recibidos2=new byte[1024];
+        recibidos2=enviar.getBytes();//pasamos a bytes y machacamos lo anterior
 
         //preparamos el envio
-        DatagramPacket envio=new DatagramPacket(recibidos, recibidos.length,ip,55555);
+        DatagramPacket envio=new DatagramPacket(recibidos2, recibidos2.length,ip,55555);
         System.out.println("Cliente 2 envia el factorial "+factorial);
         //hacemos el envio
         clienteSocket.send(envio);
+         }catch(Exception e){
+            System.out.println(e);
+        }
     }
     
 }
