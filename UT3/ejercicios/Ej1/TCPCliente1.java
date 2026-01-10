@@ -10,7 +10,7 @@ public class TCPCliente1 {
 
         try{
 
-        InetAddress ip=InetAddress.getByName("192.168.1.40");
+        InetAddress ip=InetAddress.getByName("192.168.1.37");
         
         Socket cliente1=new Socket(ip,puerto);
         System.out.println("Escriba un numero para calcular el factorial: ");

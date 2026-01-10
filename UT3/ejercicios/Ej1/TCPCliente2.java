@@ -12,7 +12,7 @@ public class TCPCliente2 {
 
         try{
 
-        InetAddress ip=InetAddress.getByName("192.168.1.40");
+        InetAddress ip=InetAddress.getByName("192.168.1.37");
         
         Socket cliente2=new Socket(ip,puerto);
         
