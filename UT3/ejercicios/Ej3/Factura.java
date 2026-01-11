@@ -1,11 +1,14 @@
+import java.io.Serializable;
 
-public class Factura {
+public class Factura implements Serializable {
     private String numFact;
     private String fecha;
     private double importe;
     private String tipoIva;
     private double iva;
     private double importeTotal;
+    //si quisieramos un atributo privado que no sea compartido usamos
+    //private transient double pasword;
 
     public Factura(String numFact,String fecha,double importe,String tipoIva){
         this.numFact=numFact;
@@ -26,21 +29,16 @@ public class Factura {
             case "IGC":
                 //7%
                 return importe*0.07;
-                break;
             case "ESP":
                 //21%
                 return importe*0.21;
-                break;
             case "EUR":
                 //15
                 return importe*0.15;
-                break;
-        
             default:
                 //algo fallo
                 System.out.println("Tipo de iva no existe, devolviendo -1");
                 return -1;
-                break;
         }
     }
 
