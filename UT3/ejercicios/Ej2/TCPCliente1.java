@@ -41,7 +41,7 @@ public class TCPCliente1 {
                 String[] datos=new String[3];
                 datos=mensaje.split("/");
                 System.out.println("La suma del array es: "+datos[0]+", el mayor es: "+datos[1]+", y el menor es: "+datos[2]+".");
-                
+                cliente.close();
             }catch(IOException eCliente){
                 System.out.println("Error al crear el socket: "+eCliente.getMessage());
                 eCliente.printStackTrace();

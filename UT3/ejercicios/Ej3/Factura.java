@@ -26,21 +26,16 @@ public class Factura {
             case "IGC":
                 //7%
                 return importe*0.07;
-                break;
             case "ESP":
                 //21%
                 return importe*0.21;
-                break;
             case "EUR":
                 //15
-                return importe*0.15;
-                break;
-        
+                return importe*0.15;        
             default:
                 //algo fallo
                 System.out.println("Tipo de iva no existe, devolviendo -1");
                 return -1;
-                break;
         }
     }
 
