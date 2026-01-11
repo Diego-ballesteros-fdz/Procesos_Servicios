@@ -1,11 +1,14 @@
+import java.io.Serializable;
 
-public class Factura {
+public class Factura implements Serializable {
     private String numFact;
     private String fecha;
     private double importe;
     private String tipoIva;
     private double iva;
     private double importeTotal;
+    //si quisieramos un atributo privado que no sea compartido usamos
+    //private transient double pasword;
 
     public Factura(String numFact,String fecha,double importe,String tipoIva){
         this.numFact=numFact;
@@ -14,11 +17,11 @@ public class Factura {
         this.tipoIva=tipoIva;
     }
 
-    public double calcularImporteTotal(){
+    public void calcularImporteTotal(){
         //Calcular el IVA
         iva=calcularIva();
         //calcular total
-        return importe+iva;
+        importeTotal=importe+iva;
     }
 
     public double calcularIva(){
