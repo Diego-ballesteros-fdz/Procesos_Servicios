@@ -32,9 +32,10 @@ public class UDPServidor {
             //preparamos el enivio
             ByteArrayOutputStream bytOut=new ByteArrayOutputStream();
             ObjectOutputStream salida=new ObjectOutputStream(bytOut);
+            salida.writeObject(facRecibida);
             byte[] bufer2=bytOut.toByteArray();
-            salida.writeObject(bufer2);
             salida.flush();
+            salida.close();
             //enviar el objeto
             InetAddress ip= paqueteRecibido.getAddress();
             int port=paqueteRecibido.getPort();
