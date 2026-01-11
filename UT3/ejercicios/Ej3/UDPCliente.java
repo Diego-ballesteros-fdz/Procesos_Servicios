@@ -35,6 +35,7 @@ public class UDPCliente {
             ObjectOutputStream salida=new ObjectOutputStream(bytOut);
             salida.writeObject(fac);
             salida.flush();//para ordenar enviar ya al Out
+            salida.close();
             byte[] bufer=bytOut.toByteArray();//añadimos la info en byte del objeto al array bufer(El que pasaremos)
             //creamos el flujo de salida
             DatagramPacket paqueteEnvio=new DatagramPacket(bufer,bufer.length,ip, port);
@@ -48,13 +49,14 @@ public class UDPCliente {
             cliente.receive(paqueteRecibo);
             System.out.println("Recibido el paquete del server");
             //convertimos a fact
-            ByteArrayInputStream bytIn=new ByteArrayInputStream(paqueteRecibo.getData());//capturamos el bufer con getData();
-            ObjectInputStream entrada=new ObjectInputStream(bytIn);
+            ByteArrayInputStream bytIn = new ByteArrayInputStream(paqueteRecibo.getData());
+            ObjectInputStream entrada = new ObjectInputStream(bytIn);
             Factura facRecibida=(Factura) entrada.readObject();
             //imprimos la factura
             System.out.println("Factura recibida.");
             System.out.println(facRecibida.toString());
             cliente.close();
+            entrada.close();
 
         }catch(Exception e){
             System.out.println("Algo salio mal con el cliente: "+e.getMessage());
