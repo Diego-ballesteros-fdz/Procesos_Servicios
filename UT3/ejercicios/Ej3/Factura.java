@@ -21,7 +21,8 @@ public class Factura implements Serializable {
         //Calcular el IVA
         iva=calcularIva();
         //calcular total
-        return importe+iva;
+        importeTotal=importe+iva;
+        return importeTotal;
     }
 
     public double calcularIva(){
