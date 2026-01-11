@@ -18,13 +18,13 @@ public class TCPCliente {
         String fecha=teclado.nextLine();
         System.out.println("Introduzca el importe: ");
         double importe=teclado.nextDouble();
-        teclado.nextLine();//limpiamos el Scanner
+        teclado.nextLine();
         System.out.println("Introduzca el Tipo de iva (IGC,ESP,EUR): ");
         String tipoIva=teclado.nextLine();
         //creamos el obj Factura
         Factura fac=new Factura(numFact, fecha, importe, tipoIva);
         //cremos el socket
-        try(Socket cliente=new Socket((InetAddress.getByName("192.168.1.41")),55555)){
+        try(Socket cliente=new Socket(InetAddress.getByName("192.168.1.41"),55555)){
             //creamos el flujo de salida
             ObjectOutputStream flujoSalida=new ObjectOutputStream(cliente.getOutputStream());
             //preparamos el obj para ser enviado

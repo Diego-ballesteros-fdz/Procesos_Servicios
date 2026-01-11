@@ -17,11 +17,12 @@ public class Factura implements Serializable {
         this.tipoIva=tipoIva;
     }
 
-    public void calcularImporteTotal(){
+    public double calcularImporteTotal(){
         //Calcular el IVA
         iva=calcularIva();
         //calcular total
         importeTotal=importe+iva;
+        return importeTotal;
     }
 
     public double calcularIva(){
@@ -34,7 +35,7 @@ public class Factura implements Serializable {
                 return importe*0.21;
             case "EUR":
                 //15
-                return importe*0.15;        
+                return importe*0.15;
             default:
                 //algo fallo
                 System.out.println("Tipo de iva no existe, devolviendo -1");
