@@ -2,22 +2,33 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cliente extends Thread{
     private int pid;
-    private int pidServer;
+    private float pidServer;
     private boolean salir;
+    private boolean[] mismaronda;
     private Socket cliente;
     private ObjectOutputStream salida;
     private ObjectInputStream entrada;
+    private int cont;
+    private ArrayList<Cliente> listaThread;
 
-    public Cliente(Socket cliente,int pidServer){
+    public Cliente(Socket cliente,float pidServer,ArrayList<Cliente> listaThread){
         this.pidServer=pidServer;
         this.cliente=cliente;
         salir=false;
+        cont=1;
+        this.listaThread=listaThread;
+        mismaronda= new boolean[] {false,false,false,false};
+    }
+    public int getCont(){
+        return cont;
     }
     
     public void run(){
@@ -26,6 +37,15 @@ public class Cliente extends Thread{
         entrada=new ObjectInputStream(cliente.getInputStream());
         salida=new ObjectOutputStream(cliente.getOutputStream());
         while(!salir){
+            //comprobamos si estamos todos en la misma ronda
+            for(Cliente h:listaThread){
+                int i=0;
+                if(h.getCont()==cont){
+                    mismaronda[i]=true;
+                }
+                i++;
+            }
+            if(mismaronda[0] && mismaronda[1] && mismaronda[2] && mismaronda[3]){
             //recibir
             String mensaje=String.valueOf(entrada.readObject());
             pid=Integer.valueOf(mensaje);
@@ -45,6 +65,13 @@ public class Cliente extends Thread{
             //devolver respuesta
             salida.writeObject(mensaje);
             salida.flush();
+            //sumamos ronda
+            cont++;
+            //reseteamos la bandera de siguiente ronda
+            for(int i=0;i<mismaronda.length;i++){
+                mismaronda[i]=false;
+            }
+        }
         }
         //si estamos aqui esque nuestro hilo ha ganado, cerramos para avisar al server
         entrada.close();
