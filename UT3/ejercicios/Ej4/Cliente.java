@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Cliente extends Thread{
@@ -34,18 +35,18 @@ public class Cliente extends Thread{
     public void run(){
         try{
         //creamos flujos
-        System.out.println("Cliente cread correctamente");
+        System.out.println("Cliente creado correctamente");
         entrada=new ObjectInputStream(cliente.getInputStream());
         salida=new ObjectOutputStream(cliente.getOutputStream());
         while(!salir){
             //comprobamos si estamos todos en la misma ronda
-            for(Cliente h:listaThread){
-                int i=0;
+            for(int i=0;i<listaThread.size();i++){
+                Cliente h=listaThread.get(i);
                 if(h.getCont()==cont){
                     mismaronda[i]=true;
                 }
-                i++;
             }
+            //System.out.println(Arrays.toString(mismaronda));
             if(mismaronda[0] && mismaronda[1] && mismaronda[2] && mismaronda[3]){
             //recibir
             String mensaje=String.valueOf(entrada.readObject());
@@ -66,6 +67,7 @@ public class Cliente extends Thread{
             //devolver respuesta
             salida.writeObject(mensaje);
             salida.flush();
+            System.out.println("LLegamos aqui");
             //sumamos ronda
             cont++;
             //reseteamos la bandera de siguiente ronda

@@ -37,11 +37,8 @@ public class TCPCliente {
                 cont++;
             }
             cliente.close();
-        }catch(SocketException eSocket){
-            System.out.println("Usted a perdido");
         }catch(Exception e){
-            System.out.println("Algo salio mal en el cliente: "+e.getMessage());
-            e.printStackTrace();
+            System.out.println("Usted a perdido");
         }
     }
     
