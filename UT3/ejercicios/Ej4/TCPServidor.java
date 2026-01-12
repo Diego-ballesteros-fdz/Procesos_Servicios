@@ -42,8 +42,9 @@ public class TCPServidor {
                             //eliminamos conexion (Lo cual hara que los clientes lancen el mensaje de perdedor en el catch)
                             c.close();
                         }
-                        //limpiamos la lista de sockets
+                        //limpiamos la lista de sockets y de threads
                         listaCliente.clear();
+                        listaThread.clear();
                         System.out.println("Juego acabado");
                     }   
                 }else{
