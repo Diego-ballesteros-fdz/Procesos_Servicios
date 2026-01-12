@@ -72,9 +72,6 @@ public class Cliente extends Thread{
             for(int i=0;i<mismaronda.length;i++){
                 mismaronda[i]=false;
             }
-            //reseteamos los flujos
-                salida.reset();
-                entrada.reset();
         }
         }
         //si estamos aqui esque nuestro hilo ha ganado, cerramos para avisar al server

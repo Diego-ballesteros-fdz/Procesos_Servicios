@@ -35,9 +35,6 @@ public class TCPCliente {
                 System.out.println(mensaje);
                 //subimos la ronda
                 cont++;
-                //reseteamos los flujos
-                flujoSalida.reset();
-                flujoEntrada.reset();
             }
             cliente.close();
         }catch(SocketException eSocket){
