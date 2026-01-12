@@ -65,6 +65,7 @@ public class TCPServidor {
                             //comenzar la partida
                             c.start();
                         }
+                        System.out.println("Clientes iniciados correctamente");
                         
                     }
                 }

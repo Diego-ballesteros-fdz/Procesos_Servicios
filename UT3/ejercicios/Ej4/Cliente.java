@@ -25,7 +25,7 @@ public class Cliente extends Thread{
         salir=false;
         cont=1;
         this.listaThread=listaThread;
-        mismaronda= new boolean[] {false,false,false,false};
+        mismaronda= new boolean[] {true,true,true,true};
     }
     public int getCont(){
         return cont;
@@ -34,6 +34,7 @@ public class Cliente extends Thread{
     public void run(){
         try{
         //creamos flujos
+        System.out.println("Cliente cread correctamente");
         entrada=new ObjectInputStream(cliente.getInputStream());
         salida=new ObjectOutputStream(cliente.getOutputStream());
         while(!salir){
@@ -53,10 +54,10 @@ public class Cliente extends Thread{
             //comprobar y salir en caso necesario
             if(pid>pidServer){
                 //el numero es mayor
-                mensaje="El pid del Servidor es mayor.";
+                mensaje="El pid del Servidor es menor.";
             }else if(pid<pidServer){
                 //el numero es menor
-                mensaje="El pid del Servidor es menor.";
+                mensaje="El pid del Servidor es mayor.";
             }else{
                 //el numero es igual
                 salir=true;
@@ -71,6 +72,9 @@ public class Cliente extends Thread{
             for(int i=0;i<mismaronda.length;i++){
                 mismaronda[i]=false;
             }
+            //reseteamos los flujos
+                salida.reset();
+                entrada.reset();
         }
         }
         //si estamos aqui esque nuestro hilo ha ganado, cerramos para avisar al server
