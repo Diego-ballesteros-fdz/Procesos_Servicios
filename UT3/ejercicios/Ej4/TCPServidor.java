@@ -18,10 +18,10 @@ public class TCPServidor {
             System.out.println("Servidor iniciado en el puerto " + puerto);
             Socket clienteSocket = serverSocket.accept();
             System.out.println("Cliente conectado: " + clienteSocket.getInetAddress().getHostAddress());
-            //guardamos a cada cliente para saber si estan todos conectados
+            //guardamos al primer cliente
             listaCliente.add(clienteSocket);
             while (true) {
-                if(listaCliente.size()==4){
+                if(listaCliente.size()==4){//bloque de la partida
                     //verificamos que ninguno haya ganado
                     int SocketGanador=-1;
                     boolean ganador=false;
@@ -29,9 +29,9 @@ public class TCPServidor {
                         Socket cliente= listaCliente.get(i);
                         //comprobamos si ha sido cerrado
                         if(cliente.isClosed()==true){
-                            //guardamos la pos del ganador
+                            //guardamos la posicion del ganador
                             SocketGanador=i;
-                            //salimos del juego desconectando el resto
+                            //salimos del juego levantando la bandera ganador
                             ganador=true;
                         }
                     }
@@ -47,7 +47,7 @@ public class TCPServidor {
                         listaThread.clear();
                         System.out.println("Juego acabado");
                     }   
-                }else{
+                }else{//bloque de lovy o espera
                     int quedan=4-listaCliente.size();
                     System.out.println("Esperando a: "+quedan+" jugador/es.");
                     //aceptamos a otro

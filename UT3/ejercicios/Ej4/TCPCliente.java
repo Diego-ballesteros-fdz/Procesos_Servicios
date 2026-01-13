@@ -2,7 +2,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Scanner;
 
 public class TCPCliente {
@@ -19,8 +18,9 @@ public class TCPCliente {
             //preparamos el bucle del juego
             while(!salir){
                 //solicitamos el numero para adivinar
-                System.out.println("Ronda "+cont+": \n \t Indique el número que cree correcto:");
+                System.out.print("Ronda "+cont+": \n \t Indique el número que cree correcto:");
                 pid=teclado.nextInt();
+                System.out.println();
                 //enviamos al server
                 flujoSalida.writeObject(pid);
                 flujoSalida.flush();
@@ -38,7 +38,7 @@ public class TCPCliente {
             }
             cliente.close();
         }catch(Exception e){
-            System.out.println("Usted a perdido");
+            System.out.println("Usted a perdido.");
         }
     }
     

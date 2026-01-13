@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -67,7 +65,7 @@ public class Cliente extends Thread{
             //devolver respuesta
             salida.writeObject(mensaje);
             salida.flush();
-            System.out.println("LLegamos aqui");
+            //System.out.println("LLegamos aqui");
             //sumamos ronda
             cont++;
             //reseteamos la bandera de siguiente ronda
