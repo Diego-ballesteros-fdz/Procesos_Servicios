@@ -38,6 +38,7 @@ public class TCPCliente {
             }
             cliente.close();
         }catch(Exception e){
+            //la idea es que al perder, el servidor cierra la conexion del sokcet y capturamos esa IOException como señal de Perder Partida
             System.out.println("Usted a perdido.");
         }
     }
